@@ -1,0 +1,15 @@
+vuzix/com/sample/video_encoder/RotationListener.java
+ vuzix.com.sample.video_encoder.RotationListener
+ vuzix.com.sample.video_encoder.RotationListener$1
+ vuzix.com.sample.video_encoder.RotationListener$rotationCallbackFn
+vuzix/com/sample/video_encoder/MainActivity.java
+ vuzix.com.sample.video_encoder.MainActivity
+ vuzix.com.sample.video_encoder.MainActivity$1
+ vuzix.com.sample.video_encoder.MainActivity$2
+ vuzix.com.sample.video_encoder.MainActivity$3
+ vuzix.com.sample.video_encoder.MainActivity$4
+ vuzix.com.sample.video_encoder.MainActivity$5
+ vuzix.com.sample.video_encoder.MainActivity$6
+ vuzix.com.sample.video_encoder.MainActivity$7
+vuzix/com/sample/video_encoder/BuildConfig.java
+ vuzix.com.sample.video_encoder.BuildConfig

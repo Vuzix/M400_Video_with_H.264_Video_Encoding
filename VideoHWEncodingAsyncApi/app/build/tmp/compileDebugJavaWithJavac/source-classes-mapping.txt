@@ -1,0 +1,16 @@
+com/vuzix/sample/video_encoder/MainActivity.java
+ com.vuzix.sample.video_encoder.MainActivity
+ com.vuzix.sample.video_encoder.MainActivity$1
+ com.vuzix.sample.video_encoder.MainActivity$2
+ com.vuzix.sample.video_encoder.MainActivity$2$1
+ com.vuzix.sample.video_encoder.MainActivity$3
+ com.vuzix.sample.video_encoder.MainActivity$4
+ com.vuzix.sample.video_encoder.MainActivity$5
+ com.vuzix.sample.video_encoder.MainActivity$6
+ com.vuzix.sample.video_encoder.MainActivity$7
+com/vuzix/sample/video_encoder/RotationListener.java
+ com.vuzix.sample.video_encoder.RotationListener
+ com.vuzix.sample.video_encoder.RotationListener$1
+ com.vuzix.sample.video_encoder.RotationListener$rotationCallbackFn
+com/vuzix/sample/video_encoder/BuildConfig.java
+ com.vuzix.sample.video_encoder.BuildConfig

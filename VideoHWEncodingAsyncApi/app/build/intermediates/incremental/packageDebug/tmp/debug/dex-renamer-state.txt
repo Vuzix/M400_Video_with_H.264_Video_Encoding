@@ -1,0 +1,7 @@
+#Fri Feb 25 16:10:01 EST 2022
+base.1=C\:\\Users\\brody_wood\\Documents\\Corrected Sample Apps\\M400\\video_hw_encoding-sample_9_21\\VideoHWEncodingAsyncApi\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+path.1=2/classes.dex
+base.0=C\:\\Users\\brody_wood\\Documents\\Corrected Sample Apps\\M400\\video_hw_encoding-sample_9_21\\VideoHWEncodingAsyncApi\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=0/classes.dex
