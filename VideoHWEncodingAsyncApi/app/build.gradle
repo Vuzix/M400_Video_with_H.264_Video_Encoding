@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 30
     buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.vuzix.sample.video_hw_encoder_async"
         minSdkVersion 27
-        targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.1"
+        targetSdkVersion 30
+        versionCode 3
+        versionName "1.0.2"
     }
     buildTypes {
         release {

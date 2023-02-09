@@ -448,7 +448,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
     }
 
     /**
-     * Utiltiy to convert frame index to millisecond timestamp
+     * Utility to convert frame index to millisecond timestamp
      * @param frameIndex long index of the frame number
      * @return long corresponding millisecond value
      */

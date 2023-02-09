@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/VideoHWEncodingAsyncApi.iml" filepath="$PROJECT_DIR$/.idea/modules/VideoHWEncodingAsyncApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VideoHWEncodingAsyncApi.app.unitTest.iml" />
     </modules>
   </component>
 </project>
