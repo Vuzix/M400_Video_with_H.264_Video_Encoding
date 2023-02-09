@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\zak_smith\GitHub\M400_Video_with_H.264_Video_Encoding\VideoHWEncodingAsyncApi\app\src\main\jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\zak_smith\GitHub\M400_Video_with_H.264_Video_Encoding\VideoHWEncodingAsyncApi\app\src\debug\jniLibs"/></dataSet></merger>
