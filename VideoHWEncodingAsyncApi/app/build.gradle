@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.vuzix.sample.video_hw_encoder_async"
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 3
         versionName "1.0.2"
     }
@@ -16,6 +15,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.vuzix.sample.video_encoder'
 }
 
 dependencies {

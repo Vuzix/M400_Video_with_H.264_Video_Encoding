@@ -61,12 +61,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This sample shows how to use the hardware encoder for H.264 video encoding. Using the hardware
@@ -95,7 +97,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
     // parameters for the encoder
     private static final int FRAME_RATE = 30;               // 30fps
     private static final int IFRAME_INTERVAL = 5;           // 5 seconds between I-frames
-    private int TIMEOUT_USEC = 100;
+    private static final int TIMEOUT_USEC = 100;
 
     private static final String MIME_TYPE = "video/avc";    // H.264 Advanced Video Coding
     private static final String ENCODER = "OMX.qcom.video.encoder.avc"; // HW encoder
@@ -217,22 +219,16 @@ public class MainActivity extends Activity implements RotationListener.rotationC
 
                 @Override
                 public void onImageAvailable(ImageReader reader) {
-                    Image image = null;
-                    try {
-                        image = reader.acquireLatestImage();
+                    try (Image image = reader.acquireLatestImage()) {
                         ByteBuffer bufferY = image.getPlanes()[0].getBuffer();
                         ByteBuffer bufferU = image.getPlanes()[1].getBuffer();
 
                         byte[] bytes = new byte[bufferY.capacity() + bufferU.capacity()];
-                        bufferY.get(bytes,0, bufferY.capacity() );
-                        bufferU.get(bytes,bufferY.capacity(), bufferU.capacity() );
+                        bufferY.get(bytes, 0, bufferY.capacity());
+                        bufferU.get(bytes, bufferY.capacity(), bufferU.capacity());
                         sendToCodec(bytes);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } finally {
-                        if (image != null) {
-                            image.close();
-                        }
                     }
                 }
 
@@ -302,7 +298,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
             mBufferInfo = new MediaCodec.BufferInfo();
 
             MediaFormat format = MediaFormat.createVideoFormat(MIME_TYPE, width, height);
-            int colorFormat = selectColorFormat(selectCodec(MIME_TYPE), MIME_TYPE);
+            int colorFormat = selectColorFormat(Objects.requireNonNull(selectCodec(MIME_TYPE)));
 
             format.setInteger(MediaFormat.KEY_COLOR_FORMAT,
                     colorFormat);
@@ -403,7 +399,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
      */
     private String getOutputMediaPath(int width, int height){
         File mediaStorageDir = new File(
-                Environment.getExternalStorageDirectory(), "video_encoder");
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "video_encoder");
 
         if (!mediaStorageDir.exists()) {
             // if you cannot make this folder return
@@ -413,9 +409,8 @@ public class MainActivity extends Activity implements RotationListener.rotationC
         }
 
         String timeStamp = String.valueOf(System.currentTimeMillis());
-        String outputPath = (mediaStorageDir.getPath() + File.separator + "VIDEO_" +timeStamp+"_"+width +"x"+height + ".mp4");
 
-        return outputPath;
+        return (mediaStorageDir.getPath() + File.separator + "VIDEO_" +timeStamp+"_"+width +"x"+height + ".mp4");
     }
 
     /**
@@ -434,8 +429,8 @@ public class MainActivity extends Activity implements RotationListener.rotationC
 
             String[] types = codecInfo.getSupportedTypes();
             String codecName = codecInfo.getName();
-            for (int j = 0; j < types.length; j++) {
-                if (types[j].equalsIgnoreCase(mimeType) && codecName.equalsIgnoreCase(ENCODER)) {
+            for (String type : types) {
+                if (type.equalsIgnoreCase(mimeType) && codecName.equalsIgnoreCase(ENCODER)) {
                     return codecInfo;
                 }
             }
@@ -445,19 +440,19 @@ public class MainActivity extends Activity implements RotationListener.rotationC
 
     /**
      * Utility to converts the codec info and mime type string into color format
+     *
      * @param codecInfo MediaCodecInfo describing the codec
-     * @param mimeType String identifying the mime type
      * @return int representing the color format, 0 on failure
      */
-    private static int selectColorFormat(MediaCodecInfo codecInfo, String mimeType) {
-        MediaCodecInfo.CodecCapabilities capabilities = codecInfo.getCapabilitiesForType(mimeType);
+    private static int selectColorFormat(MediaCodecInfo codecInfo) {
+        MediaCodecInfo.CodecCapabilities capabilities = codecInfo.getCapabilitiesForType(MainActivity.MIME_TYPE);
         for (int i = 0; i < capabilities.colorFormats.length; i++) {
             int colorFormat = capabilities.colorFormats[i];
             if (isRecognizedFormat(colorFormat)) {
                 return colorFormat;
             }
         }
-        Log.e(TAG, "couldn't find a good color format for " + codecInfo.getName() + " / " + mimeType);
+        Log.e(TAG, "couldn't find a good color format for " + codecInfo.getName() + " / " + MainActivity.MIME_TYPE);
         return 0;   // not reached
     }
 
@@ -467,13 +462,8 @@ public class MainActivity extends Activity implements RotationListener.rotationC
      * @return true if recognized as a valid format
      */
     private static boolean isRecognizedFormat(int colorFormat) {
-        switch (colorFormat) {
-            // these are the formats we know how to handle for this test
-            case MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar:
-                return true;
-            default:
-                return false;
-        }
+        // these are the formats we know how to handle for this test
+        return colorFormat == MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar;
     }
 
     /**
@@ -507,7 +497,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
             mCaptureRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mCaptureRequestBuilder.addTarget(surface);
 
-            mCameraDevice.createCaptureSession(Arrays.asList(surface), new CameraCaptureSession.StateCallback(){
+            mCameraDevice.createCaptureSession(Collections.singletonList(surface), new CameraCaptureSession.StateCallback(){
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
                     if (null == mCameraDevice) {
@@ -557,9 +547,7 @@ public class MainActivity extends Activity implements RotationListener.rotationC
                     mCameraDevice = null;
                 }
             }, null);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }catch(SecurityException e){
+        } catch (CameraAccessException | SecurityException e) {
             e.printStackTrace();
         }
     }
